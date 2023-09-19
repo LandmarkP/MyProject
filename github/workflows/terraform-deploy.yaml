@@ -1,7 +1,9 @@
  name: Terraform Deployment
  on: [push]
   branch: main
-    
+  env:
+     AWS_ACCESS_KEY_ID: ${{ secrets.ACCESS_KEY }}
+     AWS_SECRETS_ACCESS_KEY: ${{ secrets.SECRET_KEY}}
 
   jobs:
     deploy:
@@ -20,8 +22,5 @@
          run: terraform init
 
        -name: Apply Terraform Changes
-        run:|
-          terraform apply -auto-approve \
-          -var "access_key_id=${{ secrets.AWS_ACCESS_KEY_ID }}" \
-          -var "secret_key_id=${{ secrets.AWS_SECRETS_ACCESS_KEY }}"
+        run: terraform apply -auto-approve
 
